@@ -5,17 +5,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StateCensusAnalyzerTest {
+public class StateCodeTest {
     ReadRecordsOperations readObj = new ReadRecordsOperations();
-    String fileName = "IndiaStateCensusData";
-
+    String fileName = "StateCode";
 
     @Test
     public void givenStateCensusCSVFileCorrect_EnsureNumberOfRecordsMatch() throws StateCensosAnalyzerException {
-        String filePathRead = "./src/main/resources/IndiaStateCensusData.csv";
+        String filePathRead = "./src/main/resources/StateCode.csv";
         try {
             int count = readObj.readDataCount(filePathRead, fileName);
-            Assert.assertEquals(29, count);
+            Assert.assertEquals(38, count);
         } catch (StateCensosAnalyzerException e) {
             e.printStackTrace();
         }
@@ -24,24 +23,23 @@ public class StateCensusAnalyzerTest {
 
     @Test
     public void givenStateCensusCSVFile_WhenFileNameIncorrectShouldThrowException() {
-        String filePathRead = "./src/main/resources/IndiaStateCensusData";
+        String filePathRead = "./src/main/resources/StateCode";
 
         try {
             int count = readObj.readDataCount(filePathRead, fileName);
-            Assert.assertEquals(29, count);
+            Assert.assertEquals(38, count);
         } catch (StateCensosAnalyzerException e) {
             e.printStackTrace();
         }
     }
 
-
     @Test
     public void givenStateCensusCSVFile_WhenFileTypeIncorrectShouldThrowException() {
-        String filePathRead = "./src/main/resources/IndiaStateCensusData.pdf";
+        String filePathRead = "./src/main/resources/StateCode.pdf";
 
         try {
             int count = readObj.readDataCount(filePathRead, fileName);
-            Assert.assertEquals(29, count);
+            Assert.assertEquals(38, count);
         } catch (StateCensosAnalyzerException e) {
             e.printStackTrace();
         }
@@ -50,7 +48,7 @@ public class StateCensusAnalyzerTest {
 
     @Test
     public void givenStateCensusCSVFileCorrect_ButDelimiterIncorrectShouldThrowException() {
-        String filePathRead = "IndianStateCensusAnalyzer/src/main/resources/IndiaStateCensusData.csv";
+        String filePathRead = "./src/main/resources/StateCode.csv";
         String delimiter = ".";
         try {
             if (delimiter.equals(","))
@@ -64,13 +62,14 @@ public class StateCensusAnalyzerTest {
 
 
     @Test
-    public void givenStateCensusCSVFileCorrect_ButHeaderIncorrectShouldThowException() {
+    public void givenStateCensusCSVFileCorrect_ButHeaderIncorrectShouldThrowException() {
         List<String> stringName = new ArrayList<>();
-        String filePathRead = "IndianStateCensusAnalyzer/src/main/resources/IndiaStateCensusData.csv";
+        String filePathRead = "./src/main/resources/StateCode.csv";
+        stringName.add("SrNo");
         stringName.add("State");
-        stringName.add("Population");
-        stringName.add("AreaInSqKm");
-        stringName.add("Density");
+        stringName.add("Name");
+        stringName.add("TN");
+        stringName.add("StateCode");
 
         try {
             boolean flag = readObj.readHeader(filePathRead, stringName);
@@ -82,4 +81,5 @@ public class StateCensusAnalyzerTest {
             e.printStackTrace();
         }
     }
+
 }
